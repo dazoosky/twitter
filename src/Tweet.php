@@ -7,8 +7,13 @@ class Tweet {
     private $text;
     private $creationdate;
     
-    public function __construct() {
-        $this->id = -1;
+    public function __construct($id) {
+        if ($id != 0) {
+            $this->id = $id;
+        }
+        else {
+            $this->id = -1;
+        }
         $this->userId = null;
         $this->text = null;
         $this->creationdate = null;
@@ -47,27 +52,20 @@ class Tweet {
             $userId = $_SESSION['userId'];
             $stmt = $conn->prepare('INSERT INTO Tweets(userId, text, creationDate) '
                     . 'VALUES (:userId, :test, NOW())');
-            
             $result = $stmt->execute([ 
                 'userId' => $userId, 
                 'text'=> $this->text]);
-            
             if ($result !== false) {
                 $this->id = $conn->lastInsertId();
                 return true;
             }
         } else {
-            $stmt = $conn->prepare('UPDATE Tweets '
-                    . 'SET text = :text, '
-                    . 'creationDate=NOW() WHERE id=:id');
-            
+            $stmt = $conn->prepare('UPDATE Tweets SET text = :text, creationDate=NOW() WHERE id=:id');
             $result = $stmt->execute([ 
                 'id' => $this->id, 
                 'text' => $this->text]);
-            
             return $result;
         }
-        
         return false;
     }
     
@@ -78,22 +76,25 @@ class Tweet {
         if ($result === true && $stmt->rowCount() == 1) {
             $row = $stmt->fetch();
             
-            $loadedTweet = new Tweet();
-            $loadedTweet->id = $row['id'];
+            $loadedTweet = new Tweet($row['id']);
+            //$loadedTweet->id = $row['id'];<- do sprawdzenia
             $loadedTweet->setText($row['text']);
             $loadedTweet->setCreationdate($row['creationDate']);           
             return $loadedTweet;
         }
     }
     static public function loadTweetsByUserId(PDO $conn, $userId) {
-        $result = $conn->query('SELECT * FROM Tweets');
+        $sql = 'SELECT * FROM Tweets WHERE userId = :userId';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['userId'=>$userId]);
+        $result = $stmt;
         $array = [];
-                
         if ($result != false && $result->rowCount() > 0) {
             $allTweets = $result->fetchAll();
             foreach ($allTweets as $row) {
-                $loadedTweet = new Tweet();
-                $loadedTweet->id = $row['id'];
+                $loadedTweet = new Tweet($row['id']);
+                $loadedTweet->setUserId($row['userId']);
+                //$loadedTweet->id = $row['id']; <- do sprawdzenia
                 $loadedTweet->setText($row['text']);
                 $loadedTweet->setCreationdate($row['creationDate']);
                 
@@ -107,7 +108,22 @@ class Tweet {
     }
     static public function loadAllTweets(PDO $conn) {
         $result = $conn->query('SELECT * FROM `Tweets`');
-        return $result;
+        $array = [];
+        if ($result != false && $result->rowCount() > 0) {
+            $allTweets = $result->fetchAll();
+            foreach ($allTweets as $row) {
+                $loadedTweet = new Tweet($row['id']);
+                //$loadedTweet->id = $row['id']; <- do sprawdzenia czy konstruktor poprawnie tworzy obiekty
+                $loadedTweet->setText($row['text']);
+                $loadedTweet->setCreationdate($row['creationDate']);
+                $loadedTweet->setUserId($row['userId']);
+                $array[] = $loadedTweet;
+            }
+            return $array;
+        }
+        else {
+            return false;
+        }
     }
 
     

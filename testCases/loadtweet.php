@@ -10,5 +10,5 @@ var_dump($load);
 $load->setText("Lorem ipsum ipsum lorem dolores majonez");
 $load->saveToDB($conn);
 
-$alltweets = Tweet::loadTweetsByUserId($conn, 1);
+$alltweets = Tweet::loadAllTweets($conn);
 var_dump($alltweets);

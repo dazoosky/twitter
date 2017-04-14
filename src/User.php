@@ -3,7 +3,7 @@ require_once __DIR__ . '/../connection.php';
 
 class User 
 {
-    private $id;
+    protected $id;
     private $username;
     private $email;
     private $hashPass;
@@ -169,4 +169,6 @@ class User
             return false;
         }
     }
+    
+    
 }
