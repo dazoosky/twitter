@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 14 Kwi 2017, 23:01
+-- Czas generowania: 19 Kwi 2017, 00:48
 -- Wersja serwera: 5.7.17-0ubuntu0.16.04.2
 -- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -19,6 +19,36 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `tweeter`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `Comments`
+--
+
+CREATE TABLE `Comments` (
+  `id` int(11) NOT NULL,
+  `tweetId` int(11) DEFAULT NULL,
+  `authorId` int(11) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `createDate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `Comments`
+--
+
+INSERT INTO `Comments` (`id`, `tweetId`, `authorId`, `content`, `createDate`) VALUES
+(1, 1, 1, 'Comment loremum ipsusum', '2017-04-18 00:00:00'),
+(2, 1, 1, 'test comment 2', '2017-04-18 23:53:45'),
+(3, 1, 2, 'test comment 3', '2017-04-18 23:59:56'),
+(4, 1, 1, 'test comment 4', '2017-04-19 00:01:44'),
+(5, 2, 1, 'test comment 2/1', '2017-04-19 00:03:10'),
+(6, 2, 1, 'test comment 2/2', '2017-04-19 00:03:11'),
+(7, 2, 1, 'test comment 2/3', '2017-04-19 00:03:11'),
+(8, 3, 1, 'test comment 3/1', '2017-04-19 00:03:12'),
+(9, 3, 2, 'test comment 3/2', '2017-04-19 00:03:12'),
+(10, 3, 2, 'test comment 3/3', '2017-04-19 00:03:12');
 
 -- --------------------------------------------------------
 
@@ -62,7 +92,8 @@ CREATE TABLE `Tweets` (
 INSERT INTO `Tweets` (`id`, `userId`, `text`, `creationDate`) VALUES
 (1, 1, 'Lorem ipsum ipsum lorem dolores majonez', '2017-04-14'),
 (2, 1, 'lorem ipsum2', '2017-04-13'),
-(3, 2, 'lorem ipsum3', '2017-04-13');
+(3, 2, 'lorem ipsum3', '2017-04-13'),
+(5, 1, 'Tweet no comment', '2017-04-19');
 
 -- --------------------------------------------------------
 
@@ -110,6 +141,14 @@ INSERT INTO `UsersInfo` (`id`, `userId`, `aboutMe`, `age`) VALUES
 --
 
 --
+-- Indexes for table `Comments`
+--
+ALTER TABLE `Comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `authorId` (`authorId`),
+  ADD KEY `tweetId` (`tweetId`);
+
+--
 -- Indexes for table `Msgs`
 --
 ALTER TABLE `Msgs`
@@ -142,6 +181,11 @@ ALTER TABLE `UsersInfo`
 --
 
 --
+-- AUTO_INCREMENT dla tabeli `Comments`
+--
+ALTER TABLE `Comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
 -- AUTO_INCREMENT dla tabeli `Msgs`
 --
 ALTER TABLE `Msgs`
@@ -150,7 +194,7 @@ ALTER TABLE `Msgs`
 -- AUTO_INCREMENT dla tabeli `Tweets`
 --
 ALTER TABLE `Tweets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT dla tabeli `Users`
 --
@@ -164,6 +208,13 @@ ALTER TABLE `UsersInfo`
 --
 -- Ograniczenia dla zrzutów tabel
 --
+
+--
+-- Ograniczenia dla tabeli `Comments`
+--
+ALTER TABLE `Comments`
+  ADD CONSTRAINT `Comments_ibfk_1` FOREIGN KEY (`authorId`) REFERENCES `Users` (`id`),
+  ADD CONSTRAINT `Comments_ibfk_2` FOREIGN KEY (`tweetId`) REFERENCES `Tweets` (`id`);
 
 --
 -- Ograniczenia dla tabeli `Msgs`

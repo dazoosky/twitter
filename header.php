@@ -9,6 +9,10 @@
    
   </head>
   <body>
+<?php 
+if (isset($_SESSION['userId'])) {
+    echo'
+     
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -27,3 +31,8 @@
     </div>
   </div>
 </nav>
+';
+}    
+else {
+    echo '';
+}
