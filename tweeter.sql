@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 19 Kwi 2017, 00:48
+-- Czas generowania: 19 Kwi 2017, 23:44
 -- Wersja serwera: 5.7.17-0ubuntu0.16.04.2
 -- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -48,7 +48,11 @@ INSERT INTO `Comments` (`id`, `tweetId`, `authorId`, `content`, `createDate`) VA
 (7, 2, 1, 'test comment 2/3', '2017-04-19 00:03:11'),
 (8, 3, 1, 'test comment 3/1', '2017-04-19 00:03:12'),
 (9, 3, 2, 'test comment 3/2', '2017-04-19 00:03:12'),
-(10, 3, 2, 'test comment 3/3', '2017-04-19 00:03:12');
+(10, 3, 2, 'test comment 3/3', '2017-04-19 00:03:12'),
+(12, 1, 1, 'new test comment for first post', '2017-04-19 23:18:33'),
+(13, 1, 1, 'another test comment', '2017-04-19 23:29:24'),
+(14, 1, 1, 'and another one', '2017-04-19 23:30:23'),
+(15, 2, 1, 'New test comment 4/2 for post no. 2', '2017-04-19 23:33:24');
 
 -- --------------------------------------------------------
 
@@ -82,7 +86,7 @@ CREATE TABLE `Tweets` (
   `id` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `text` varchar(120) NOT NULL,
-  `creationDate` date NOT NULL
+  `creationDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -90,10 +94,10 @@ CREATE TABLE `Tweets` (
 --
 
 INSERT INTO `Tweets` (`id`, `userId`, `text`, `creationDate`) VALUES
-(1, 1, 'Lorem ipsum ipsum lorem dolores majonez', '2017-04-14'),
-(2, 1, 'lorem ipsum2', '2017-04-13'),
-(3, 2, 'lorem ipsum3', '2017-04-13'),
-(5, 1, 'Tweet no comment', '2017-04-19');
+(1, 1, 'Lorem ipsum ipsum lorem dolores majonez', '2017-04-14 10:17:15'),
+(2, 1, 'lorem ipsum2', '2017-04-13 04:15:00'),
+(3, 2, 'lorem ipsum3', '2017-04-13 02:00:00'),
+(5, 1, 'Tweet no comment', '2017-04-17 05:26:04');
 
 -- --------------------------------------------------------
 
@@ -184,7 +188,7 @@ ALTER TABLE `UsersInfo`
 -- AUTO_INCREMENT dla tabeli `Comments`
 --
 ALTER TABLE `Comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT dla tabeli `Msgs`
 --
@@ -194,7 +198,7 @@ ALTER TABLE `Msgs`
 -- AUTO_INCREMENT dla tabeli `Tweets`
 --
 ALTER TABLE `Tweets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT dla tabeli `Users`
 --
