@@ -11,3 +11,6 @@ var_dump($comm1);
 //$comm1->saveToDB($conn);
 */
 Comment::countCommentsForAllPosts($conn);
+
+$allComments = Comment::loadCommentsByTweetId($conn, 1);
+var_dump($allComments);

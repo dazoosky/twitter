@@ -9,7 +9,7 @@ class Comment {
     private $content;
     private $createDate;
     
-    public function __construct($id) {
+    public function __construct($id = 0) {
         if ($id > 0) {
             $this->id = $id;
         }
@@ -76,9 +76,8 @@ class Comment {
         return false;
     }
     
-    public function loadCommentsByTweetId(PDO $conn, $tweetId) {
-        $stmt = $conn->prepare('SELECT * FROM Comments WHERE tweetId = :tweetId');
-        $result = $stmt->execute(['tweetId'=>$tweetId]);
+    static public function loadCommentsByTweetId(PDO $conn, $tweetId) {
+        $result = $conn->query('SELECT * FROM Comments WHERE tweetId = '.$tweetId.' ORDER BY createDate DESC');
         $array = [];
         if ($result != false && $result->rowCount() > 0) {
             $allComments = $result->fetchAll();

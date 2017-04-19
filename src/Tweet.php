@@ -78,6 +78,7 @@ class Tweet {
             
             $loadedTweet = new Tweet($row['id']);
             //$loadedTweet->id = $row['id'];<- do sprawdzenia
+            $loadedTweet->setUserId($row['userId']);
             $loadedTweet->setText($row['text']);
             $loadedTweet->setCreationdate($row['creationDate']);           
             return $loadedTweet;
