@@ -10,6 +10,8 @@
   </head>
   <body>
 <?php 
+//session_start();
+//var_dump($_SESSION);
 if (isset($_SESSION['userId'])) {
     echo'
      
@@ -23,10 +25,10 @@ if (isset($_SESSION['userId'])) {
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="index.php">Homepage</a>
-      <a class="navbar-brand" href="messeges.php">Wiadomości</a>
-      <a class="navbar-brand" href="userpanel.php">Panel użytkownika</a>
+      <a class="navbar-brand" href="messages.php">Messages</a>
+      <a class="navbar-brand" href="userpanel.php">User panel</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php">Wyloguj</a></li>
+        <li><a href="logout.php">Logout</a></li>
       </ul>
     </div>
   </div>

@@ -11,7 +11,7 @@ if (isset($_SESSION['msgForNewComment']) && $_SESSION['msgForNewComment'] != '')
         echo '<div class="container"><div class="container">';
         echo '<div class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>'.$_SESSION['msgForNewComment'].'</div>';
+                <strong>'.$_SESSION['msgForNewComment'].'</strong></div>';
         echo '</div></div>';
         unset ($_SESSION['msgForNewComment']);
         unset ($_SESSION['SuccessForNewComment']);
@@ -20,7 +20,7 @@ if (isset($_SESSION['msgForNewComment']) && $_SESSION['msgForNewComment'] != '')
         echo '<div class="container"><div class="container">';
         echo '<div class="alert alert-dismissible alert-danger">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>'.$_SESSION['msgForNewComment'].'</div>';
+                <strong>'.$_SESSION['msgForNewComment'].'</strong></div>';
         echo '</div></div>';
         unset ($_SESSION['msgForNewComment']);
         unset ($_SESSION['SuccessForNewComment']);

@@ -26,4 +26,4 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <input type="submit">
 </form>
 
-<a href="register.php">Rejestracja</a>
+<a href="register.php">New user?</a>

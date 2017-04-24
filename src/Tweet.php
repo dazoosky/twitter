@@ -7,7 +7,7 @@ class Tweet {
     private $text;
     private $creationdate;
     
-    public function __construct($id) {
+    public function __construct($id = 0) {
         if ($id != 0) {
             $this->id = $id;
         }
@@ -51,7 +51,7 @@ class Tweet {
         if($this->id == -1) {
             $userId = $_SESSION['userId'];
             $stmt = $conn->prepare('INSERT INTO Tweets(userId, text, creationDate) '
-                    . 'VALUES (:userId, :test, NOW())');
+                    . 'VALUES (:userId, :text, NOW())');
             $result = $stmt->execute([ 
                 'userId' => $userId, 
                 'text'=> $this->text]);
@@ -108,7 +108,7 @@ class Tweet {
         }
     }
     static public function loadAllTweets(PDO $conn) {
-        $result = $conn->query('SELECT * FROM `Tweets`');
+        $result = $conn->query('SELECT * FROM `Tweets` ORDER BY creationDate DESC');
         $array = [];
         if ($result != false && $result->rowCount() > 0) {
             $allTweets = $result->fetchAll();

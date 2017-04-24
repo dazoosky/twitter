@@ -4,7 +4,6 @@ require __DIR__ . '/src/Comment.php';
 require __DIR__ . '/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    var_dump($_POST);
     $message = '';
     if (isset($_POST['commentText']) && isset($_POST['tweetId'])) {
         if (strlen($_POST['commentText']) <= 120) {
