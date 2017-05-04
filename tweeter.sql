@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 19 Kwi 2017, 23:44
+-- Czas generowania: 04 Maj 2017, 23:25
 -- Wersja serwera: 5.7.17-0ubuntu0.16.04.2
 -- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -52,7 +52,11 @@ INSERT INTO `Comments` (`id`, `tweetId`, `authorId`, `content`, `createDate`) VA
 (12, 1, 1, 'new test comment for first post', '2017-04-19 23:18:33'),
 (13, 1, 1, 'another test comment', '2017-04-19 23:29:24'),
 (14, 1, 1, 'and another one', '2017-04-19 23:30:23'),
-(15, 2, 1, 'New test comment 4/2 for post no. 2', '2017-04-19 23:33:24');
+(15, 2, 1, 'New test comment 4/2 for post no. 2', '2017-04-19 23:33:24'),
+(16, 1, 2, 'Comment by user 2', '2017-04-20 20:21:24'),
+(17, 6, 1, 'Lorem ipsum mądrze mówisz!', '2017-04-20 20:37:27'),
+(18, 6, 1, 'Wiadomo\r\n', '2017-04-24 19:31:03'),
+(19, 7, 3, 'mea culpa!\r\n', '2017-04-24 21:55:59');
 
 -- --------------------------------------------------------
 
@@ -63,9 +67,9 @@ INSERT INTO `Comments` (`id`, `tweetId`, `authorId`, `content`, `createDate`) VA
 CREATE TABLE `Msgs` (
   `id` int(11) NOT NULL,
   `senderId` int(11) DEFAULT NULL,
-  `recieverId` int(11) DEFAULT NULL,
+  `receiverId` int(11) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
-  `sentDate` date DEFAULT NULL,
+  `sentDate` datetime DEFAULT NULL,
   `readStatus` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -73,8 +77,21 @@ CREATE TABLE `Msgs` (
 -- Zrzut danych tabeli `Msgs`
 --
 
-INSERT INTO `Msgs` (`id`, `senderId`, `recieverId`, `content`, `sentDate`, `readStatus`) VALUES
-(2, 1, 2, 'Przykladowa wiadomosc lorem ipsum', '2017-04-14', 0);
+INSERT INTO `Msgs` (`id`, `senderId`, `receiverId`, `content`, `sentDate`, `readStatus`) VALUES
+(26, 1, 2, 'Lorem ipsum dolor sit amet magna. Fusce interdum. Donec quis orci. ', '2017-05-04 23:10:03', 0),
+(27, 1, 3, 'Lorem ipsum dolor sit amet magna. Fusce interdum. Donec quis orci. ', '2017-05-04 23:10:05', 0),
+(28, 1, 31, 'Lorem ipsum dolor sit amet magna. Fusce interdum. Donec quis orci. ', '2017-05-04 23:10:08', 0),
+(29, 1, 32, 'Lorem ipsum dolor sit amet magna. Fusce interdum. Donec quis orci. ', '2017-05-04 23:10:10', 0),
+(30, 2, 1, 'Ut sagittis ultricies. Donec facilisis dignissim eu, magna', '2017-05-04 23:10:31', 1),
+(31, 2, 1, 'Ut sagittis ultricies. Donec facilisis dignissim eu, magna', '2017-05-04 23:10:34', 1),
+(32, 2, 31, 'Ut sagittis ultricies. Donec facilisis dignissim eu, magna', '2017-05-04 23:10:41', 0),
+(33, 2, 32, 'Ut sagittis ultricies. Donec facilisis dignissim eu, magna', '2017-05-04 23:10:43', 0),
+(34, 2, 3, 'Ut sagittis ultricies. Donec facilisis dignissim eu, magna', '2017-05-04 23:10:45', 0),
+(35, 32, 3, 'Curabitur adipiscing wisi a pellentesque sed, dapibus a, sollicitudin ac, felis.', '2017-05-04 23:11:00', 0),
+(36, 32, 2, 'Curabitur adipiscing wisi a pellentesque sed, dapibus a, sollicitudin ac, felis.', '2017-05-04 23:11:03', 0),
+(37, 32, 1, 'Curabitur adipiscing wisi a pellentesque sed, dapibus a, sollicitudin ac, felis.', '2017-05-04 23:11:05', 1),
+(38, 32, 1, 'Curabitur adipiscing wisi a pellentesque sed, dapibus a, sollicitudin ac, felis.', '2017-05-04 23:11:06', 1),
+(39, 32, 3, 'Curabitur adipiscing wisi a pellentesque sed, dapibus a, sollicitudin ac, felis.', '2017-05-04 23:11:08', 0);
 
 -- --------------------------------------------------------
 
@@ -97,7 +114,9 @@ INSERT INTO `Tweets` (`id`, `userId`, `text`, `creationDate`) VALUES
 (1, 1, 'Lorem ipsum ipsum lorem dolores majonez', '2017-04-14 10:17:15'),
 (2, 1, 'lorem ipsum2', '2017-04-13 04:15:00'),
 (3, 2, 'lorem ipsum3', '2017-04-13 02:00:00'),
-(5, 1, 'Tweet no comment', '2017-04-17 05:26:04');
+(5, 1, 'Tweet no comment', '2017-04-17 05:26:04'),
+(6, 2, 'Tweet dodany za pośrednictwem strony ', '2017-04-20 20:34:25'),
+(7, 3, 'Tweeted by testuser3', '2017-04-24 21:55:49');
 
 -- --------------------------------------------------------
 
@@ -118,7 +137,10 @@ CREATE TABLE `Users` (
 
 INSERT INTO `Users` (`id`, `email`, `username`, `hash_pass`) VALUES
 (1, 'abc@abc.pl', 'testuser0', '$2y$10$bo59x.I2Md9BGZvgWym3XO6T5CQIDvDjfAxElFJTeTUsNlIIYsz3u'),
-(2, 'test2@abc.pl', 'testuser2', 'sdsdsd');
+(2, 'test2@abc.pl', 'testuser2', '$2y$10$bo59x.I2Md9BGZvgWym3XO6T5CQIDvDjfAxElFJTeTUsNlIIYsz3u'),
+(3, 'test3@abc.pl', 'testuser3', '$2y$10$GMv/fxnaDzhvqNoX6BiuLe7rlxO5cTFFDXQtSqz2mqMjADnn2T1Bq'),
+(31, 'testuser4@abc.pl', 'testuser4', '$2y$10$udoqHCCtXO5Z9BnzBrYbWe2cS2.jdFn1MlQ2Fk8h49GJ64Ua9cq9m'),
+(32, 'test5@abc.pl', 'testuser5', '$2y$10$i1DK.B4avK8EBf5g9YCA8.WSh6.bjqHtWMN9QuPzNEqzlvqT/O1j6');
 
 -- --------------------------------------------------------
 
@@ -158,7 +180,7 @@ ALTER TABLE `Comments`
 ALTER TABLE `Msgs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `senderId` (`senderId`),
-  ADD KEY `recieverId` (`recieverId`);
+  ADD KEY `recieverId` (`receiverId`);
 
 --
 -- Indexes for table `Tweets`
@@ -188,22 +210,22 @@ ALTER TABLE `UsersInfo`
 -- AUTO_INCREMENT dla tabeli `Comments`
 --
 ALTER TABLE `Comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT dla tabeli `Msgs`
 --
 ALTER TABLE `Msgs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT dla tabeli `Tweets`
 --
 ALTER TABLE `Tweets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT dla tabeli `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT dla tabeli `UsersInfo`
 --
@@ -225,7 +247,7 @@ ALTER TABLE `Comments`
 --
 ALTER TABLE `Msgs`
   ADD CONSTRAINT `Msgs_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `Users` (`id`),
-  ADD CONSTRAINT `Msgs_ibfk_2` FOREIGN KEY (`recieverId`) REFERENCES `Users` (`id`);
+  ADD CONSTRAINT `Msgs_ibfk_2` FOREIGN KEY (`receiverId`) REFERENCES `Users` (`id`);
 
 --
 -- Ograniczenia dla tabeli `Tweets`

@@ -79,15 +79,17 @@ class Message {
                 ]);
             if ($result !== false) {
                 $this->id = $conn->lastInsertId();
+                return true;
             }
         }
         else {
-            $stmt = $conn->prepare('UPDATE Msgs SET senderId = :senderId, receiverId = :receiverId, content = :content, readStatus = :readStatus');
+            $stmt = $conn->prepare('UPDATE Msgs SET senderId = :senderId, receiverId = :receiverId, content = :content, readStatus = :readStatus WHERE id = :id');
             $result = $stmt->execute([
+                'id' => $this->id,
                 'senderId' => $this->senderId,
                 'receiverId' => $this->receiverId,
                 'content' => $this->content,
-                'readStatus' => $this->status
+                'readStatus' => $this->readStatus
             ]);
             return $result;
         }

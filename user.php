@@ -20,8 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo '<li>Więcej o użytkowniku:<br>'.$user->getAboutMe().'</li>';
             echo '<li>Wiek: '.$user->getAge().'</li>';
             echo '<li>Adres e-mail: '.$user->getEmail().'</li>';
-            echo '<li><a href="sendMsg.php?sentTo='.$userId.'">Wyślij wiadomość do '.$user->getUsername().'</a></li></ul></div></div>';
-            
+            if (intval($_SESSION['userId']) != $user->getId()) {
+            echo '<li><a href="sendMsg.php?sendTo='.$userId.'">Wyślij wiadomość do '.$user->getUsername().'</a></li>';
+            }
+            echo '</ul></div></div>';
             $commentCounter = Comment::countCommentsForAllPosts($conn);
             $alltweets = Tweet::loadTweetsByUserId($conn, intval($_GET['userId']));
             echo '<div class="panel panel-default"><div class="panel-body"><h2>Tweety tego użytkownika:</h2></div>';

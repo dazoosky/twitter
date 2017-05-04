@@ -66,6 +66,7 @@ class User
                 $this->id = $conn->lastInsertId();
                 return true;
             }
+            
         } else {
             $stmt = $conn->prepare('UPDATE Users '
                     . 'SET username=:username, '

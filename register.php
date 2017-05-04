@@ -3,7 +3,7 @@ session_start();
 if(isset($_SESSION['userId'])) {
     header('Location: index.php');
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userName = trim($_POST['username']);
     $userEmail = trim($_POST['email']);
     $userPassword = trim($_POST['password']);
@@ -15,12 +15,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newUser->setUsername($userName);
     $newUser->setEmail($userEmail);
     $newUser->setPassword($userPassword);
-    
-    if($newUser->saveToDB($conn)) {
-        header('Location: login.php');
+    $result = $newUser->saveToDB($conn);
+    if($result) {
+        header('Location: index.php');
     } else {
         echo 'Nieprawidłowe dane do rejestracji';
     }
+    
 }
 ?>
 
