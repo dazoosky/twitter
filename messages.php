@@ -1,9 +1,13 @@
 <?php
 session_start();
 include __DIR__ . '/header.php';
-require_once __DIR__ . '/src/UserExtended.php';
-require_once __DIR__ . '/src/Message.php';
+//require_once __DIR__ . '/src/UserExtended.php';
+//require_once __DIR__ . '/src/Message.php';
 require_once __DIR__ . '/connection.php';
+function __autoload($classname) {
+    $filename = './src/'.$classname.'.php';
+    require_once ($filename);
+}
 
 ?>
 <div class="container">

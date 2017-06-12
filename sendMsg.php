@@ -3,9 +3,13 @@ session_start();
 if (!isset ($_SESSION['userId'])) {
     header('Location: index.php'); 
 }
-require_once __DIR__ . '/src/User.php';
-require_once __DIR__ . '/src/Message.php';
+//require_once __DIR__ . '/src/User.php';
+//require_once __DIR__ . '/src/Message.php';
 require_once __DIR__ . '/connection.php';
+function __autoload($classname) {
+    $filename = './src/'.$classname.'.php';
+    require_once ($filename);
+}
 include __DIR__ . '/header.php';
     $allUsers = User::loadAllUsers($conn);
     $me = User::loadUserById($conn, $_SESSION['userId']);

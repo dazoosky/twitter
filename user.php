@@ -1,10 +1,13 @@
 <?php
 session_start();
-require_once __DIR__ . '/src/UserExtended.php';
-require_once __DIR__ . '/src/Tweet.php';
-require_once __DIR__ . '/src/Comment.php';
+//require_once __DIR__ . '/src/UserExtended.php';
+//require_once __DIR__ . '/src/Tweet.php';
+//require_once __DIR__ . '/src/Comment.php';
 require_once __DIR__ . '/connection.php';
-
+function __autoload($classname) {
+    $filename = './src/'.$classname.'.php';
+    require_once ($filename);
+}
 include_once __DIR__ . '/header.php';
 
 echo '<div class="container"><div class="container">';

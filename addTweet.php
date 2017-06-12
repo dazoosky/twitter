@@ -1,10 +1,13 @@
 <?php
 session_start();
-require __DIR__ . '/src/Tweet.php';
 require __DIR__ . '/connection.php';
+function __autoload($classname) {
+    $filename = './src/'.$classname.'.php';
+    require_once ($filename);
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    var_dump($_POST);
+    //var_dump($_POST);
     $message = '';
     if (isset($_POST['tweetText']) && isset($_SESSION['userId'])) {
         if (strlen($_POST['tweetText']) <= 255) {

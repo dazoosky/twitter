@@ -1,8 +1,12 @@
 <?php
-require_once __DIR__ . '/src/Tweet.php';
-require_once __DIR__ . '/src/User.php';
-require_once __DIR__ . '/src/Comment.php';
+//require_once __DIR__ . '/src/Tweet.php';
+//require_once __DIR__ . '/src/User.php';
+//require_once __DIR__ . '/src/Comment.php';
 require_once __DIR__ . '/connection.php';
+function __autoload($classname) {
+    $filename = './src/'.$classname.'.php';
+    require_once ($filename);
+}
 $username = User::loadUserById($conn, $_SESSION['userId']);
 $username = $username->getUsername();
 ?>

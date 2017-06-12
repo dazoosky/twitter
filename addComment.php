@@ -1,7 +1,11 @@
 <?php
 session_start();
-require __DIR__ . '/src/Comment.php';
+//require __DIR__ . '/src/Comment.php';
 require __DIR__ . '/connection.php';
+function __autoload($classname) {
+    $filename = './'.$classname.'.php';
+    require_once ($filename);
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = '';
