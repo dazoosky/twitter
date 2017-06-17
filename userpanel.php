@@ -44,14 +44,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $commentCounter = Comment::countCommentsForAllPosts($conn);
             $alltweets = Tweet::loadTweetsByUserId($conn, intval($_SESSION['userId']));
             echo '<div class="panel panel-default"><div class="panel-body"><h2>My posts:</h2></div>';
-            foreach ($alltweets as $tweet) {
-                $userId = $tweet->getUserId();
-                $user = User::loadUserById($conn, $userId);
-                $username = $user->getUsername();
+            if (isset($tweet)) {
+                foreach ($alltweets as $tweet) {
+                    $userId = $tweet->getUserId();
+                    $user = User::loadUserById($conn, $userId);
+                    $username = $user->getUsername();
+                    echo '<div class="panel panel-default"><div class="panel-body">';
+                    echo $tweet->getText();
+                    echo '</div><div class="panel-footer"> by <a href="user.php?userId='.$userId.'">'.$username.'</a> on '.$tweet->getCreationdate().'</div>';
+                    echo '<div class="panel-footer"><a href="tweet.php?tweetId='.$tweet->getId().'">'.$commentCounter[$tweet->getId()].' Komentarzy</a></div></div>';
+                }
+            }
+            else {
                 echo '<div class="panel panel-default"><div class="panel-body">';
-                echo $tweet->getText();
-                echo '</div><div class="panel-footer"> by <a href="user.php?userId='.$userId.'">'.$username.'</a> on '.$tweet->getCreationdate().'</div>';
-                echo '<div class="panel-footer"><a href="tweet.php?tweetId='.$tweet->getId().'">'.$commentCounter[$tweet->getId()].' Komentarzy</a></div></div>';
+                echo '</div></div>';
             }
         
         }

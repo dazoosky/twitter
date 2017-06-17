@@ -48,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-//    var_dump($userDB);
-    var_dump($userDB->saveToDB($conn));
+    var_dump($userDB);
+//    var_dump($userDB->saveToDB($conn));
+    $userDB->saveToDB($conn);
+//    header("Location: userpanel.php ");
 }

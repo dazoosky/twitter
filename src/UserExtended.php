@@ -39,7 +39,7 @@ class UserExtended extends User {
         
     
     static public function loadMoreAboutUser(PDO $conn, $id) {
-        $stmt = $conn->prepare('SELECT Users.id, Users.username, Users.email, UsersInfo.aboutMe, UsersInfo.age, UsersInfo.userId FROM Users JOIN UsersInfo ON Users.id = UsersInfo.userId WHERE Users.id = :id');
+        $stmt = $conn->prepare('SELECT Users.hash_pass, Users.id, Users.username, Users.email, UsersInfo.aboutMe, UsersInfo.age, UsersInfo.userId FROM Users JOIN UsersInfo ON Users.id = UsersInfo.userId WHERE Users.id = :id');
         $result = $stmt->execute(['id' => $id]);
         if ($result === true && $stmt->rowCount() == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -87,8 +87,12 @@ class UserExtended extends User {
                 //$this->id = $conn->lastInsertId();
                 return true;
             }
+            else {
+                echo 'dupa';
+            }
         } 
         else {
+            var_dump($this);
             $stmt = $conn->prepare('UPDATE Users '
                     . 'SET username=:username, '
                     . 'email=:email, '
@@ -98,9 +102,9 @@ class UserExtended extends User {
                     . 'age=:age WHERE userId=:id');
             
             $result = $stmt->execute([ 
-                'username' => $this->username, 
-                'email' => $this->email,
-                'hash_pass' => $this->hashPass, 
+                'username' => $this->getUsername(), 
+                'email' => $this->getEmail(),
+                'hash_pass' => $this->getHashPass(), 
                 'id' => $this->id,
                 'aboutMe' => $this->aboutMe,
                 'age' => $this->age]);
