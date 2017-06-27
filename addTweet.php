@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //var_dump($_POST);
     $message = '';
     if (isset($_POST['tweetText']) && isset($_SESSION['userId'])) {
-        if (strlen($_POST['tweetText']) <= 255) {
+        if (strlen($_POST['tweetText']) <= 140) {
             $newTweet = new Tweet;
             $newTweet->setText($_POST['tweetText']);
             $newTweet->setUserId($_SESSION['userId']);
@@ -24,10 +24,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['msgForNewTweet'] = "Coś jest nie tak z Twoim nowym Tweetem :(";
                 $_SESSION['SuccessForNewTweet'] = false;
                 header ("Location: index.php");
-                
-            }   
+            }
+            
+        }
+        else {
+            $_SESSION['msgForNewTweet'] = "Tweet za długi!";
+            $_SESSION['SuccessForNewTweet'] = false;
+            header ("Location: index.php");            
         }
     }
+    
     else {
         $_SESSION['msgForNewTweet'] = "Coś jest nie tak z Twoim nowym Tweetem :(";
         $_SESSION['SuccessForNewTweet'] = false;

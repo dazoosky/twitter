@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     <input type="hidden" name="tweetId" value="<?php echo $tweetId?>" />    
                     <label for="commentText" class="col-lg-2 control-label">Your comment:</label>
                     <div class="col-lg-10">
-                    <textarea class="form-control" rows="3" name="commentText" id="commentText" maxlength="120"></textarea>
-                    <span class="help-block">Max lenght 120 chars.</span>
+                    <textarea class="form-control" rows="2" name="commentText" id="commentText" maxlength="60"></textarea>
+                    <span class="help-block">Max lenght 60 chars.</span>
                     <button type="submit" class="btn btn-primary">Add!</button>
                     </div>                    
                     </div>

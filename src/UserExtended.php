@@ -58,8 +58,8 @@ class UserExtended extends User {
             $loadedUserDetails = new UserExtended($id);
             $loadedUserDetails->setUsername($loadedUser->getUsername());
             $loadedUserDetails->setEmail($loadedUser->getEmail());
-            $loadedUserDetails->setAboutMe('Brak dodatkowych informacji');
-            $loadedUserDetails->setAge('Nieznany');
+            $loadedUserDetails->setAboutMe('No info available');
+            $loadedUserDetails->setAge('No info available');
             $loadedUserDetails->setHashPass($loadedUser->getHashPass());
             $loadedUserDetails->setNewUser(true);
             return $loadedUserDetails;

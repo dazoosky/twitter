@@ -18,18 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         if ($user != null) {
             //var_dump($user);
             echo '<div class="panel panel-default"><div class="panel-body">';
-            echo '<h2>Profil użytkownia: '.$user->getUsername().'</h2>';
+            echo '<h2>Profile: '.$user->getUsername().'</h2>';
             echo '</div><div class="panel-footer"><ul>';
-            echo '<li>Więcej o użytkowniku:<br>'.$user->getAboutMe().'</li>';
-            echo '<li>Wiek: '.$user->getAge().'</li>';
-            echo '<li>Adres e-mail: '.$user->getEmail().'</li>';
+            echo '<li>More about me:<br>'.$user->getAboutMe().'</li>';
+            echo '<li>Age: '.$user->getAge().'</li>';
+            echo '<li>E-mail: '.$user->getEmail().'</li>';
             if (intval($_SESSION['userId']) != $user->getId()) {
-            echo '<li><a href="sendMsg.php?sendTo='.$userId.'">Wyślij wiadomość do '.$user->getUsername().'</a></li>';
+            echo '<li><a href="sendMsg.php?sendTo='.$userId.'">Send message to '.$user->getUsername().'</a></li>';
             }
             echo '</ul></div></div>';
             $commentCounter = Comment::countCommentsForAllPosts($conn);
             $alltweets = Tweet::loadTweetsByUserId($conn, intval($_GET['userId']));
-            echo '<div class="panel panel-default"><div class="panel-body"><h2>Tweety tego użytkownika:</h2></div>';
+            echo '<div class="panel panel-default"><div class="panel-body"><h2>My tweets:</h2></div>';
             foreach ($alltweets as $tweet) {
                 $userId = $tweet->getUserId();
                 $user = User::loadUserById($conn, $userId);
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         
         }
         else {
-            echo 'Błedne ID użytkownika <br><a href="index.php">Wróc na stronę główną</a>';
+            echo 'Wrong user ID<br><a href="index.php">Homepage...</a>';
         }
     }
 }

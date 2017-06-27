@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <label>PASSWORD</label><br>
     <input type="password" name="password">
     <br>
-    <input type="submit">
+    <input type="submit" value="Login!">
 </form>
 
 <a href="register.php">New user?</a>

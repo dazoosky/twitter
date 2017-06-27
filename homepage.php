@@ -46,8 +46,8 @@ $username = $username->getUsername();
                         <div class="form-group">
                             <label for="tweetText" class="col-lg-2 control-label"><h2>What's up?</h2></label>
                             <div class="col-lg-10">
-                                <textarea class="form-control" rows="3" name="tweetText" id="tweetText" maxlength="255"></textarea>
-                                <span class="help-block">Max lenght 255 chars.</span>
+                                <textarea class="form-control" rows="2" name="tweetText" id="tweetText" maxlength="140"></textarea>
+                                <span class="help-block">Max lenght 140 chars.</span>
                                 <button type="submit" class="btn btn-primary">Add my tweet!</button>
                             </div>                    
                         </div>
@@ -62,7 +62,15 @@ $username = $username->getUsername();
             echo '<div class="panel panel-default"><div class="panel-body">';
             echo $tweet->getText();
             echo '</div><div class="panel-footer"> by <a href="user.php?userId='.$userId.'">'.$username.'</a> on '.$tweet->getCreationdate().'</div>';
-            echo '<div class="panel-footer"><a href="tweet.php?tweetId='.$tweet->getId().'">'.$commentCounter[$tweet->getId()].' Komentarzy</a></div></div>';
+            if ($commentCounter[$tweet->getId()] == 0) {
+                echo '<div class="panel-footer"><a href="tweet.php?tweetId='.$tweet->getId().'"> No comments</a></div></div>';
+            }
+            else if ($commentCounter[$tweet->getId()] == 1) {
+                echo '<div class="panel-footer"><a href="tweet.php?tweetId='.$tweet->getId().'">'.$commentCounter[$tweet->getId()].' Comment</a></div></div>';
+            }
+            else {
+                echo '<div class="panel-footer"><a href="tweet.php?tweetId='.$tweet->getId().'">'.$commentCounter[$tweet->getId()].' Comments</a></div></div>';
+            }
         }
         ?>
         
